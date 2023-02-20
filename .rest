@@ -1,0 +1,50 @@
+@url = http://localhost:3000
+
+###
+GET {{url}}/users
+
+###
+
+POST {{url}}/users
+Content-Type: application/json
+
+{
+    "name" : "admin"
+}
+
+###
+
+PUT {{url}}/users/29
+Content-Type: application/json
+
+{
+    "name" : "komang"
+}
+
+###
+
+DELETE {{url}}/users/30
+
+
+
+#untuk food_recipes
+
+###
+
+POST {{url}}/recipes
+Content-Type: application/json
+
+{
+    "title" : "baso aci",
+    "ingredients" : "baksi, aci",
+    "photo" : "3gp",
+    "users_id" : 29
+}
+
+###
+
+GET {{url}}/recipes
+
+
+###
+GET {{url}}/recipes/1
