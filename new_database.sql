@@ -1,4 +1,4 @@
--- Active: 1676517313718@@127.0.0.1@5432@recipes
+-- Active: 1676517313718@@127.0.0.1@5432@recipes@public
 
 
 
@@ -22,14 +22,20 @@ CREATE TABLE food_recipes(
 
 CREATE TABLE category(
     id SERIAL PRIMARY KEY,
-    tittle VARCHAR NOT NULL
+    title VARCHAR NOT NULL
 );
 
 
-
-
-
-
+CREATE TABLE users (
+  id VARCHAR PRIMARY KEY,
+  email VARCHAR UNIQUE NOT NULL,
+  password VARCHAR NOT NULL,
+  fullname VARCHAR,
+  photo VARCHAR,
+  verif INT DEFAULT 0,
+  otp VARCHAR,
+  created_at TIMESTAMP
+);
 
 
 
@@ -92,20 +98,20 @@ WHERE
 SELECT title, TO_CHAR(created_at, 'DD-MM-YYYY HH24:MI:SS') AS created_at_formatted FROM food_recipes;
 
 
-SELECT * FROM category;
+SELECT * FROM food_recipes WHERE users_id = users_id;
 
 INSERT INTO category(title) VALUES('dessert');
 
 
 /* untuk menambahkan sebuah kolom baru bernama category_id pada tabel food_recipes. Kolom tersebut memiliki tipe data INT, yang biasanya digunakan untuk menyimpan nilai bilangan bulat. */
-ALTER TABLE food_recipes ADD category_id INT;
+ALTER TABLE users ADD roles VARCHAR NOT NULL DEFAULT 'customer';
 
 
 /* adalah perintah SQL untuk menambahkan sebuah foreign key pada tabel food_recipes yang merujuk ke kolom id pada tabel category. Artinya, setiap nilai pada kolom category_id pada tabel food_recipes harus ada di kolom id pada tabel category. */
 
-ALTER TABLE food_recipes ADD FOREIGN KEY(category_id) REFERENCES category(id);
+ALTER TABLE food_recipes ADD FOREIGN KEY(users_id) REFERENCES users(id);
 
-ALTER TABLE users ADD deleted_at TIMESTAMP DEFAULT NULL;
+ALTER TABLE food_recipes ADD users_id VARCHAR;
 
 SELECT * FROM food_recipes JOIN category ON food_recipes.category_id=category.id;
 
@@ -135,6 +141,8 @@ WHERE
   food_recipes.title ILIKE '%kacang%'  
 ORDER BY 
   food_recipes.created_at DESC;
+
+
 
 
 
@@ -183,9 +191,12 @@ DELETE FROM category WHERE id = 8;
 SELECT * FROM CATEGORY;
 
 
+UPDATE category SET deleted_at = NULL WHERE id = 1;
+
+
 UPDATE category SET title='' WHERE id='id';
 
-ALTER TABLE category ADD deleted_at TIMESTAMP DEFAULT NULL;
+ALTER TABLE users ADD deleted_at TIMESTAMP DEFAULT NULL;
 
 
 /* untuk users */
@@ -263,9 +274,24 @@ SELECT
 SELECT users.name as creator, food_recipes.title FROM users JOIN food_recipes ON users.id = food_recipes.users_id WHERE users.deleted_at IS NULL ORDER BY users.name DESC ;
 
 
-SELECT u.name, f.title 
-FROM users u 
-INNER JOIN food_recipes f ON u.id = f.users_id 
-WHERE u.id = 33 
-AND u.deleted_at IS NULL
-AND f.deleted_at IS NULL;
+SELECT users.name as creator, food_recipes.title 
+FROM users
+INNER JOIN food_recipes ON users.id = food_recipes.users_id 
+WHERE users.${by} = ${data}
+AND users.deleted_at IS NULL;
+
+
+
+
+CREATE POLICY admin_policy ON users
+  USING (roles = 'admin')
+  WITH CHECK (roles = 'admin')
+  FOR SELECT, INSERT, UPDATE, DELETE
+  TO admin;
+
+
+CREATE POLICY admin_policy ON users
+USING (roles = 'admin')
+WITH CHECK (roles = 'admin')
+FOR SELECT, INSERT, UPDATE, DELETE
+TO admin;

@@ -37,14 +37,82 @@ Content-Type: application/json
 {
     "title" : "baso aci",
     "ingredients" : "baksi, aci",
-    "photo" : "3gp",
-    "users_id" : 29
+    "photo" : "3gp"
 }
 
 ###
 
-GET {{url}}/recipes
+
+POST {{url}}/auth/register
+content-type: application/json
+
+{
+    "email": "ohmygod@gmail.com",
+    "fullname": "ohmy",
+    "password": "123"
+}
+
+###
+
+
+GET {{url}}/auth/otp/6d3fb5d9-2e47-40e2-b608-20a03b7081c4/990519
+
 
 
 ###
-GET {{url}}/recipes/1
+GET {{url}}/auth/refresh
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDNmYjVkOS0yZTQ3LTQwZTItYjYwOC0yMGEwM2I3MDgxYzQiLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2Nzc0MDIzMjYsImV4cCI6MTY3ODAwNzEyNn0.AVwHfrT-UdKytTb5T4xnTzEaagcr5_WXJEi07w4c_mo
+
+
+###
+
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "ohmygod@gmail.com",
+    "password": "123"
+}
+
+
+###
+
+
+GET {{url}}/recipes
+
+
+
+###
+GET {{url}}/recipes/user-recipes/recipes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYyYWMxNjc4LWFiODQtNGIxNi05MDYwLTZlZWNjZDNhZWM3NCIsImVtYWlsIjoiYWNpbGlsQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJGFyZ29uMmlkJHY9MTkkbT02NTUzNix0PTMscD00JFVZNjFSQWtkckhSWFh0M0Ixa2d1c1EkNlk5b0JPdy83NVhrS1BwY0xFVWNPUi9PK01IWHE1NGloRlpVSnhyWmErTSIsImZ1bGxuYW1lIjoiYWNpbCIsInBob3RvIjpudWxsLCJ2ZXJpZiI6MCwib3RwIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJpYXQiOjE2NzcyMjIwMjAsImV4cCI6MTcwODc1ODAyMH0.kc71Ka7IEbpIBF7u59-iO1TPkrkFEdNQf6Dncs73bpA
+
+###
+
+POST {{url}}/recipes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNkMTJlZjlmLTk2NjktNDRkZi1iZGRlLTE1ZjYxNGQ1YWIyMyIsImVtYWlsIjoieXZ1eWdvaWhAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkYXJnb24yaWQkdj0xOSRtPTY1NTM2LHQ9MyxwPTQkRnB4S2dUb0FFTUJ2dk9sZHBCdzczQSRjL3FZaGFTL3VZTTNVWTdyOG1iOTc5M1N0Ui8rekxzeUlMWGFHM2IwVnpRIiwiZnVsbG5hbWUiOiJhY2lsIiwicGhvdG8iOm51bGwsInZlcmlmIjowLCJvdHAiOm51bGwsImNyZWF0ZWRfYXQiOm51bGwsImlhdCI6MTY3NzIwODk1NCwiZXhwIjoxNzA4NzQ0OTU0fQ.m6a_VQY9JeAPDkT13AIPUavzKLd7420uMXK0GdzH62g
+
+{
+    "title" : "rujak cingur",
+    "ingredients" : "buah-buahan",
+    "photo" : "3gp",
+    "category_id": 2
+}
+
+###
+
+
+GET {{url}}/recipes/21
+
+
+###
+PUT {{url}}/recipes/21
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImYyYWMxNjc4LWFiODQtNGIxNi05MDYwLTZlZWNjZDNhZWM3NCIsImVtYWlsIjoiYWNpbGlsQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJGFyZ29uMmlkJHY9MTkkbT02NTUzNix0PTMscD00JFVZNjFSQWtkckhSWFh0M0Ixa2d1c1EkNlk5b0JPdy83NVhrS1BwY0xFVWNPUi9PK01IWHE1NGloRlpVSnhyWmErTSIsImZ1bGxuYW1lIjoiYWNpbCIsInBob3RvIjpudWxsLCJ2ZXJpZiI6MCwib3RwIjpudWxsLCJjcmVhdGVkX2F0IjpudWxsLCJpYXQiOjE2NzcyMjIwMjAsImV4cCI6MTcwODc1ODAyMH0.kc71Ka7IEbpIBF7u59-iO1TPkrkFEdNQf6Dncs73bpA
+Content-Type: application/json
+
+{
+    "title" : "sambal",
+    "ingredients" : "sambal dan daun jeruk",
+    "photo" : "3gp",
+    "category_id": 2
+}

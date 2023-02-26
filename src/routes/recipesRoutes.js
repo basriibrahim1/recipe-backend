@@ -1,13 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const { inputRecipes, listRecipesQuery, recipesUpdated, showRecipesByName, showRecipesById, softDeleteRecipe, getRecipesData } = require("../controllers/recipesController");
+const { inputRecipes, listRecipesQuery, showRecipesUpdated, showRecipesByName, showRecipesById, softDeleteRecipe, getRecipesData, showRecipesByPayloadId} = require("../controllers/recipesController");
+const protect = require("../middleware/ProtectAuth");
+const upload = require("../middleware/photo")
 
-router.post("/", inputRecipes);
+
+// insert ke database
+router.post("/", protect, upload.single('photo'), inputRecipes);
+
+// get dengan query
 router.get("/query", listRecipesQuery);
+
+// get semua data
 router.get("/", getRecipesData);
-router.get("/:title", showRecipesByName);
-router.get("/id/:id", showRecipesById);
-router.put("/id/:id", recipesUpdated);
-router.put("/id/:id/delete", softDeleteRecipe);
+
+// get dengan nama
+router.get("/name/:title", showRecipesByName);
+
+
+// get by id
+router.get("/:id", showRecipesById);
+
+// get khusus user
+router.get("/user-recipes/recipes", protect, showRecipesByPayloadId);
+
+// ganti khusus user
+router.put("/:id", protect, showRecipesUpdated);
+
+// delete khusus user
+router.delete("/:id",protect, softDeleteRecipe);
+
 
 module.exports = router;
