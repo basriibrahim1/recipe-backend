@@ -28,7 +28,7 @@ const userQuery = (data) => {
 };
 
 const updateUser = (data, id) => {
-    let {email, password, fullname, photo} = data
+    let {email, password, fullname, photo} = data;
 
     return pool.query(`UPDATE users SET email= '${email}',password = '${password}',fullname = '${fullname}', photo = '${photo}' WHERE users.id='${id}';`);
 };
@@ -37,13 +37,13 @@ const updateUser = (data, id) => {
 const createUser = (data) => {
     const {id, email, fullname, password, otp} = data;
     return new Promise((resolve, reject) => pool.query(`INSERT INTO users(id, email, fullname, password, otp) VALUES('${id}', '${email}', '${fullname}', '${password}', ${otp})`, 
-            (err, res) => {
-                if(!err){
-                    resolve(res);
-                } else {
-                    reject(err.message);
-                }
-            })
+        (err, res) => {
+            if(!err){
+                resolve(res);
+            } else {
+                reject(err.message);
+            }
+        })
     );
 };
 
@@ -57,7 +57,7 @@ const deleteUser = (id) => {
     const currentTime = new Date().toISOString();
     return pool.query(`
         UPDATE users SET deleted_at = '${currentTime}' WHERE users.id = '${id}'
-    `)
+    `);
 };
 
 module.exports = { selectUser, updateUser, checkUserById, userQuery, createUser, verifyUser, deleteUser};

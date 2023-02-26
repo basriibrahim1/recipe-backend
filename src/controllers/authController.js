@@ -2,8 +2,8 @@ const {createUser, verifyUser} = require("../models/userModels");
 const {v4:uuidv4} = require("uuid");
 const argon2 = require("argon2");
 const {generateToken, generateRefreshToken} = require("../helpers/generateToken");
-const {findUser, findUserById} = require('../middleware/verifyUser')
-const email = require("../middleware/email")
+const {findUser, findUserById} = require("../middleware/verifyUser");
+const email = require("../middleware/email");
 
 
 const authController = {
@@ -15,7 +15,7 @@ const authController = {
             });
         }
 
-        let otp = Math.floor(100000 + Math.random() * 900000)
+        let otp = Math.floor(100000 + Math.random() * 900000);
 
         let {rows:[users]} = await findUser(req.body.email);
 
@@ -25,7 +25,7 @@ const authController = {
             });
         }
 
-        let id = uuidv4()
+        let id = uuidv4();
 
         let data = {
             id,
@@ -46,10 +46,10 @@ const authController = {
 
         try {
 
-            let url = `http://${process.env.BASE_URL}:${process.env.PORT}/auth/${id}/${otp}`
-            let sendEmail = email(req.body.email, otp, url, req.body.name)
+            let url = `http://${process.env.BASE_URL}:${process.env.PORT}/auth/${id}/${otp}`;
+            let sendEmail = email(req.body.email, otp, url, req.body.name);
 
-            if(sendEmail === 'Email not sent'){
+            if(sendEmail === "Email not sent"){
                 return res.status(400).json({
                     message: "Email failed to send"
                 });
@@ -104,17 +104,17 @@ const authController = {
        
 
         if(verifyPassword){
-            const accessToken = generateToken(users)
-            const refreshToken = generateRefreshToken(users)
+            const accessToken = generateToken(users);
+            const refreshToken = generateRefreshToken(users);
 
-            users.token = accessToken
+            users.token = accessToken;
             users.refreshToken = refreshToken;
             delete users.created_at;
             delete users.password;
             delete users.otp;
             delete users.verif;
 
-            return res.status(200).cookie("refreshToken", refreshToken, {httpOnly: true, sameSite: "none", secure: false}).json({
+            return res.status(200).cookie("refreshToken", refreshToken, {httpOnly: true, sameSite: "none", secure: true}).json({
                 message: "Login success", 
                 data: users
             });
@@ -126,8 +126,8 @@ const authController = {
     },
 
     otp: async(req,res,next) => {
-        let userId = req.params.id
-        let otpUser = req.params.code
+        let userId = req.params.id;
+        let otpUser = req.params.code;
 
         if(!userId || !otpUser ){
             return res.status(400).json({
@@ -144,7 +144,7 @@ const authController = {
         }
 
         if(users.otp === otpUser){
-            let verif = await verifyUser(userId)
+            let verif = await verifyUser(userId);
             if(verif){
                 return res.status(200).json({
                     message: "Verified"

@@ -25,5 +25,8 @@
     "pg": "^8.9.0",
     "uuid": "^9.0.0",
     "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0"
   }
 }

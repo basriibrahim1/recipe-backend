@@ -1,6 +1,6 @@
 const  {findFoodRecipesById}  = require("../middleware/verifyUser");
 const { selectInsertRecipes, selectRecipesQuery, selectRecipesName, selectRecipesId, selectUpdateRecipes, selectDeleteRecipes, selectAllRecipes , selectRecipesPayloadId} = require("../models/recipesModels");
-const cloudinary = require('../config/cloudinaryConfig')
+const cloudinary = require("../config/cloudinaryConfig");
 
 const recipeController = {
     inputRecipes: async (req, res) => {
@@ -18,13 +18,13 @@ const recipeController = {
         //     urls.push(result.secure_url);
         // })
         // );
-        const imageUrl = await cloudinary.uploader.upload(req.file.path, {folders:'food'})
+        const imageUrl = await cloudinary.uploader.upload(req.file.path, {folders:"food"});
 
-            if(!imageUrl){
-                res.status(401).json({
-                    message: "Failed to input data, please try again later",
-                });
-            }
+        if(!imageUrl){
+            res.status(401).json({
+                message: "Failed to input data, please try again later",
+            });
+        }
 
 
         
@@ -32,11 +32,11 @@ const recipeController = {
         data.title = req.body.title;
         data.ingredients = req.body.ingredients;
         data.photo = imageUrl.secure_url;
-        data.users_id = req.payload.id
+        data.users_id = req.payload.id;
         data.category_id = parseInt(req.body.category_id);
        
 
-        console.log(data)
+        console.log(data);
 
 
         
@@ -49,7 +49,7 @@ const recipeController = {
                 message: "data recipes has been inputed",
             });
         } catch (error) {
-            console.log(error)
+            console.log(error);
             res.status(401).json({
                 message: "data recipes not input",
             });
@@ -140,7 +140,7 @@ const recipeController = {
 
 
             res.status(200).json({
-                message: `Result :`,
+                message: "Result :",
                 data: result.rows
             });
         } catch (error) {
@@ -156,41 +156,41 @@ const recipeController = {
         let users_id = req.payload.id;
       
         try {
-          let selectDataById = await findFoodRecipesById(id);
-          let currentRecipe = selectDataById.rows[0];
+            let selectDataById = await findFoodRecipesById(id);
+            let currentRecipe = selectDataById.rows[0];
       
-          let data = {
-            title: req.body.title || currentRecipe.title,
-            ingredients: req.body.ingredients || currentRecipe.ingredients,
-            category_id: req.body.category_id || currentRecipe.category_id,
-            photo: req.body.photo || currentRecipe.photo,
-            users_id: currentRecipe.users_id
-          };
+            let data = {
+                title: req.body.title || currentRecipe.title,
+                ingredients: req.body.ingredients || currentRecipe.ingredients,
+                category_id: req.body.category_id || currentRecipe.category_id,
+                photo: req.body.photo || currentRecipe.photo,
+                users_id: currentRecipe.users_id
+            };
           
-          if(data.users_id !== users_id){
-            res.status(403).json({
-              message: 'Access Denied'
-            });
-          } else {
-            await selectUpdateRecipes(data, id);
+            if(data.users_id !== users_id){
+                res.status(403).json({
+                    message: "Access Denied"
+                });
+            } else {
+                await selectUpdateRecipes(data, id);
 
 
-            res.status(200).json({
-              message: 'Data has been updated',
-            });
-          }
+                res.status(200).json({
+                    message: "Data has been updated",
+                });
+            }
           
         } catch (error) {
-          res.status(500).json({
-            message: "Internal server error",
-            error: error.message,
-          });
+            res.status(500).json({
+                message: "Internal server error",
+                error: error.message,
+            });
         }
-      },
+    },
 
     softDeleteRecipe: async (req, res) => {
         let id = req.params.id;
-        let users_id = req.payload.id
+        let users_id = req.payload.id;
 
         try {
 
@@ -200,8 +200,8 @@ const recipeController = {
 
             if(selectDataById.rows[0].users_id !== users_id){
                 res.status(403).json({
-                    message: 'Access Denied'
-                  });
+                    message: "Access Denied"
+                });
             } else {
                 await selectDeleteRecipes(id, users_id);
                 res.status(200).json({

@@ -11,8 +11,8 @@ router.get("/otp/:id/:code", otp);
 
 router.get("/refresh", protect, (req, res) => {
     res.status(200).json({
-        message: 'Success To Refresh'
-    })
-})
+        message: "Success To Refresh"
+    });
+});
 
 module.exports = router;

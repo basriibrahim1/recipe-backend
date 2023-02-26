@@ -64,13 +64,13 @@ const userController = {
         try {
 
             let checking = await checkUserById(id);
-            let current = checking.rows[0]
+            let current = checking.rows[0];
 
-            let data = {}
-            data.email = req.body.email || current.email
-            data.password = req.body.password || current.password
-            data.fullname = req.body.fullname || current.fullname
-            data.photo = req.body.photo || current.photo          
+            let data = {};
+            data.email = req.body.email || current.email;
+            data.password = req.body.password || current.password;
+            data.fullname = req.body.fullname || current.fullname;
+            data.photo = req.body.photo || current.photo;          
 
             if(checking.rows[0].id !== id ){
                 res.status(404).json({

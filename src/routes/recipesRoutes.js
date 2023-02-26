@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { inputRecipes, listRecipesQuery, showRecipesUpdated, showRecipesByName, showRecipesById, softDeleteRecipe, getRecipesData, showRecipesByPayloadId} = require("../controllers/recipesController");
 const protect = require("../middleware/ProtectAuth");
-const upload = require("../middleware/photo")
+const upload = require("../middleware/photo");
 
 
 // insert ke database

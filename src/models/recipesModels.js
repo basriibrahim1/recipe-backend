@@ -69,21 +69,21 @@ const selectUpdateRecipes = (data, id) => {
     let { title, ingredients, category_id, photo, users_id} = data;
 
     return new Promise((resolve, reject) => {
-      pool.query(
-        `UPDATE recipes SET 
+        pool.query(
+            `UPDATE recipes SET 
           title = '${title}',
           ingredients = '${ingredients}',
           category_id = ${category_id}, 
           photo = '${photo}'
         WHERE id = ${id} AND users_id = '${users_id}' AND deleted_at IS NULL RETURNING *`,
-        (error, result) => {
-          if (error) {
-            reject(error.message);
-          } else {
-            resolve(result.rows[0]);
-          }
-        }
-      );
+            (error, result) => {
+                if (error) {
+                    reject(error.message);
+                } else {
+                    resolve(result.rows[0]);
+                }
+            }
+        );
     });
 };
 
