@@ -18,32 +18,38 @@ const recipeController = {
         //     urls.push(result.secure_url);
         // })
         // );
+        const imageUrl = await cloudinary.uploader.upload(req.file.path, {folders:'food'})
+
+            if(!imageUrl){
+                res.status(401).json({
+                    message: "Failed to input data, please try again later",
+                });
+            }
+
 
         
-
-        const imageUrl = await cloudinary.uploader.upload(req.file.path, {folder:'food'})
-
-        if(!imageUrl){
-            res.status(401).json({
-                message: "Failed to input data, please try again later",
-            });
-        }
-
-        let users_id = req.payload.id
-
         let data = {};
-        data.title = req.body.title || '';
-        data.ingredients = req.body.ingredients || '';
-        data.photo = imageUrl.secure_url
-        data.category_id = req.body.category_id || '';
+        data.title = req.body.title;
+        data.ingredients = req.body.ingredients;
+        data.photo = imageUrl.secure_url;
+        data.users_id = req.payload.id
+        data.category_id = parseInt(req.body.category_id);
+       
+
+        console.log(data)
+
+
         
-        try {
-            await selectInsertRecipes(data, users_id);
+        
+        try { 
+
+            await selectInsertRecipes(data);
 
             res.status(200).json({
                 message: "data recipes has been inputed",
             });
         } catch (error) {
+            console.log(error)
             res.status(401).json({
                 message: "data recipes not input",
             });

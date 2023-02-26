@@ -35,8 +35,8 @@ const updateUser = (data, id) => {
 
 
 const createUser = (data) => {
-    const {id, email, fullname, password, otp, roles} = data;
-    return new Promise((resolve, reject) => pool.query(`INSERT INTO users(id, email, fullname, password, otp, roles) VALUES('${id}', '${email}', '${fullname}', '${password}', ${otp}, '${roles}')`, 
+    const {id, email, fullname, password, otp} = data;
+    return new Promise((resolve, reject) => pool.query(`INSERT INTO users(id, email, fullname, password, otp) VALUES('${id}', '${email}', '${fullname}', '${password}', ${otp})`, 
             (err, res) => {
                 if(!err){
                     resolve(res);

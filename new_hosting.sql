@@ -1,3 +1,4 @@
+-- Active: 1677393302853@@149.129.241.190@5432@basri01@public
 CREATE TABLE users(
     id VARCHAR PRIMARY KEY,
     email VARCHAR NOT NULL,
@@ -6,15 +7,19 @@ CREATE TABLE users(
     photo VARCHAR,
     verif INT DEFAULT 0,
     OTP VARCHAR,
-    created_at TIMESTAMP,
-    roles VARCHAR NOT NULL DEFAULT 'user'
+    created_at TIMESTAMP
 );
+
+SELECT * FROM users;
+
 -- register -> activated email
 CREATE TABLE category(
     id SERIAL PRIMARY KEY,
     name VARCHAR NOT NULL
 );
 INSERT INTO category(name) VALUES('main course');
+
+
 CREATE TABLE recipes(
     id SERIAL,
     title VARCHAR NOT NULL,
@@ -24,4 +29,5 @@ CREATE TABLE recipes(
     users_id VARCHAR REFERENCES users(id)
 );
 ALTER TABLE recipes add category_id INT;
+
 ALTER TABLE recipes add Foreign Key (category_id) REFERENCES category(id);

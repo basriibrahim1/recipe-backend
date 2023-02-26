@@ -1,7 +1,7 @@
 const {createUser, verifyUser} = require("../models/userModels");
 const {v4:uuidv4} = require("uuid");
 const argon2 = require("argon2");
-const {generateToken, refreshToken} = require("../helpers/generateToken");
+const {generateToken, generateRefreshToken} = require("../helpers/generateToken");
 const {findUser, findUserById} = require('../middleware/verifyUser')
 const email = require("../middleware/email")
 
@@ -33,7 +33,7 @@ const authController = {
             fullname: req.body.fullname,
             password: await argon2.hash(req.body.password),
             otp,
-            roles: 'customer'
+            // roles: 'customer'
         };
 
         let register = await createUser(data);
@@ -104,13 +104,17 @@ const authController = {
        
 
         if(verifyPassword){
-            users.token = generateToken(users);
+            const accessToken = generateToken(users)
+            const refreshToken = generateRefreshToken(users)
+
+            users.token = accessToken
+            users.refreshToken = refreshToken;
             delete users.created_at;
             delete users.password;
             delete users.otp;
             delete users.verif;
 
-            return res.status(200).json({
+            return res.status(200).cookie("refreshToken", refreshToken, {httpOnly: true, sameSite: "none", secure: false}).json({
                 message: "Login success", 
                 data: users
             });

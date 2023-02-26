@@ -1,11 +1,10 @@
 const jwt = require("jsonwebtoken");
 
 let key = process.env.JWT_TOKEN;
-let newKey = process.env.REFRESH_TOKEN
 
 const generateToken = (payload) => {
     const verifyOptions = {
-        expiresIn: "1d"
+        expiresIn: "10s"
     };
     const token = jwt.sign(payload, key, verifyOptions);
     return token;
@@ -13,13 +12,12 @@ const generateToken = (payload) => {
 
 
 
-const refreshToken = (payload) => {
+const generateRefreshToken = (payload) => {
     const verifyOptions = {
-        expiresIn: "7d"
+        expiresIn: "1h"
     };
-    const token = jwt.sign(payload, newKey, verifyOptions);
+    const token = jwt.sign(payload, key, verifyOptions);
     return token;
 };
 
-
-module.exports = {generateToken, refreshToken} 
+module.exports = {generateToken, generateRefreshToken} 

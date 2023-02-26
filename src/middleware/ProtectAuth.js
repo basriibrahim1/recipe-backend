@@ -24,15 +24,31 @@ const protect = (req, res, next) => {
                 message: "Invalid Token"
             });
         } else if(error && error.name == "TokenExpiredError") {
-            res.status(404).json({
-                message: "Token has Expired, Please Log in to get the New Token"
-            });
+            let refreshToken = req.cookies.refreshToken;
+            if (refreshToken){
+                jwt.verify(refreshToken, key, (err, payload) => {
+                    if (err) {
+                        return res.status(401).json({ message: "Access Token Expired, Please Get The New One" })
+                    }
+
+                // Refresh token valid, buat access token baru
+                const accessToken = jwt.sign({ payload }, key, { expiresIn: "15m" });
+
+            
+            
+                res.setHeader("Authorization", `Bearer ${accessToken}`);
+
+                // Lanjutkan eksekusi middleware
+                req.payload = jwt.verify(accessToken, key)
+                next()
+            })
         } else {
             res.status(404).json({
                 message: "Please take some token with logging in"
-            });
+            })
         }
     }
-};
+    }
+}
 
-module.exports = protect;
+module.exports = protect

@@ -6,7 +6,7 @@ const upload = require("../middleware/photo")
 
 
 // insert ke database
-router.post("/", protect, upload.single('photo'), inputRecipes);
+router.post("/", protect, upload.single("photo"), inputRecipes);
 
 // get dengan query
 router.get("/query", listRecipesQuery);
