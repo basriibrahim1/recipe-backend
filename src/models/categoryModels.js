@@ -2,19 +2,19 @@ const pool = require("../config/db");
 
 const getCategory = () => {
     return pool.query(`
-      SELECT category.id, category.title FROM category;
+      SELECT category.id, category.name FROM category;
     `);
 };
 
 const getCategoryById = (id) => {
     return pool.query(`
-    SELECT category.id, category.title FROM category WHERE category.deleted_at IS NULL AND category.id = ${id};
+    SELECT category.id, category.name FROM category WHERE category.deleted_at IS NULL AND category.id = ${id};
     `);
 };
 
-const postCategory = (title) => {
+const postCategory = (name) => {
     return pool.query(`
-    INSERT INTO category(title) VALUES('${title}');
+    INSERT INTO category(name) VALUES('${name}');
   `);
 };
 
@@ -22,14 +22,14 @@ const categoryQuery = (data) => {
     let { searchBy, search, sortBy, sort } = data;
 
     return pool.query(
-        `SELECT category.title FROM category WHERE category.${searchBy} ILIKE '%${search}%' ORDER BY category.${sortBy} ${sort}`
+        `SELECT category.name FROM category WHERE category.${searchBy} ILIKE '%${search}%' ORDER BY category.${sortBy} ${sort}`
     );
 };
 
-const updateCategory = (title, id) => {
+const updateCategory = (name, id) => {
     return pool.query(
         `
-    UPDATE category SET title='${title.category}' WHERE category.id='${id}';`
+    UPDATE category SET name='${name}' WHERE category.id='${id}';`
     );
 };
 

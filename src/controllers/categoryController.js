@@ -27,10 +27,10 @@ const categoryController = {
     },
 
     inputCategory: async (req, res) => {
-        let { title } = req.body;
+        let { name } = req.body;
 
         try {
-            await postCategory(title);
+            await postCategory(name);
 
             res.status(200).json({
                 message: "insert category complete",
@@ -44,7 +44,7 @@ const categoryController = {
     },
 
     checkCategoryByQuery: async (req, res) => {
-        let { searchBy = "title", search = "", sortBy = "title", sort = "desc", offset = 0, limit = 10 } = req.query;
+        let { searchBy = "name", search = "", sortBy = "name", sort = "desc", offset = 0, limit = 10 } = req.query;
         let data = { searchBy, search, sortBy, sort, offset, limit };
 
         try {

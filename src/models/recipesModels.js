@@ -11,7 +11,7 @@ const selectInsertRecipes = (data) => {
 
 const selectAllRecipes = () => {
     return pool.query(`
-        SELECT recipes.id, users.fullname as creator, recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.title AS category
+        SELECT recipes.id, users.fullname as creator, recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category
         FROM recipes
         JOIN category ON recipes.category_id = category.id
         JOIN users ON recipes.users_id = users.id
@@ -22,7 +22,7 @@ const selectAllRecipes = () => {
 const selectRecipesQuery = (data) => {
     let { sort, search, searchBy, sortBy, offset, limit } = data;
     return pool.query(
-        `SELECT recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.title AS category
+        `SELECT recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category
         FROM recipes 
         INNER JOIN category ON recipes.category_id = category.id 
         WHERE recipes.deleted_at IS NULL AND recipes.${searchBy} ILIKE '%${search}%' 
@@ -34,7 +34,7 @@ const selectRecipesQuery = (data) => {
 
 const selectRecipesName = (title) => {
     return pool.query(`
-    SELECT recipes.title, users.fullname AS creator, recipes.ingredients AS ingredients, category.title AS category 
+    SELECT recipes.title, users.fullname AS creator, recipes.ingredients AS ingredients, category.name AS category 
     FROM recipes 
     JOIN category ON recipes.category_id = category.id 
     JOIN users ON recipes.users_id = users.id 
@@ -45,7 +45,7 @@ const selectRecipesName = (title) => {
 
 const selectRecipesId = (id) => {
     return pool.query(`
-        SELECT recipes.id AS id, users_id AS users_id, users.fullname AS creator, recipes.title, recipes.ingredients, recipes.photo, category.title AS category_title, category.id AS category_id
+        SELECT recipes.id AS id, users_id AS users_id, users.fullname AS creator, recipes.title, recipes.ingredients, recipes.photo, category.name AS category_title, category.id AS category_id
       FROM recipes 
       INNER JOIN category ON recipes.category_id = category.id 
       INNER JOIN users ON recipes.users_id = users.id
@@ -56,7 +56,7 @@ const selectRecipesId = (id) => {
 
 const selectRecipesPayloadId = (id) => {
     return pool.query(`
-    SELECT users_id AS Users, recipes.title, recipes.ingredients, recipes.photo, category.title AS category_title, category.id AS category_id
+    SELECT users_id AS Users, recipes.title, recipes.ingredients, recipes.photo, category.name AS category_title, category.id AS category_id
       FROM recipes 
       INNER JOIN category ON recipes.category_id = category.id 
       INNER JOIN users ON recipes.users_id = users.id
