@@ -30,7 +30,7 @@ const findUserById = (id) => {
 
 const findFoodRecipesById = (id) => {
     return new Promise((resolve, reject) => {
-        pool.query(`SELECT * FROM food_recipes WHERE id = ${id}`, (err, res) => {
+        pool.query(`SELECT * FROM recipes WHERE id = ${id}`, (err, res) => {
             if (err) {
                 reject(err.message);
             } else if (res.rows.length === 0) {

@@ -28,6 +28,6 @@ CREATE TABLE recipes(
     created_at TIMESTAMP NOT NULL,
     users_id VARCHAR REFERENCES users(id)
 );
-ALTER TABLE recipes add category_id INT;
+ALTER TABLE recipes add deleted_at TIMESTAMP DEFAULT NULL;
 
 ALTER TABLE recipes add Foreign Key (category_id) REFERENCES category(id);

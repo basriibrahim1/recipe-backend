@@ -32,9 +32,7 @@ const protect = (req, res, next) => {
                     }
 
                     // Refresh token valid, buat access token baru
-                    const accessToken = jwt.sign({ payload }, key, { expiresIn: "15m" });
-
-            
+                    const accessToken = jwt.sign({ payload }, key);          
             
                     res.setHeader("Authorization", `Bearer ${accessToken}`);
 
