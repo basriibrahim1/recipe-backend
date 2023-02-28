@@ -71,11 +71,11 @@ const selectUpdateRecipes = (data, id) => {
     return new Promise((resolve, reject) => {
         pool.query(
             `UPDATE recipes SET 
-          title = '${title}',
-          ingredients = '${ingredients}',
-          category_id = ${category_id}, 
-          photo = '${photo}'
-        WHERE id = ${id} AND users_id = '${users_id}' AND deleted_at IS NULL RETURNING *`,
+            title = '${title}',
+            ingredients = '${ingredients}',
+            category_id = ${category_id}, 
+            photo = '${photo}'
+            WHERE id = ${id} AND users_id = '${users_id}' AND deleted_at IS NULL RETURNING *`,
             (error, result) => {
                 if (error) {
                     reject(error.message);

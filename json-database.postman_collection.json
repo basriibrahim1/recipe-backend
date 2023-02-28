@@ -7,6 +7,149 @@
 	},
 	"item": [
 		{
+			"name": "Auth Register / Login",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"bas@gmail.com\", \"fullname\": \"ari\", \"password\": \"123\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/auth/register",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\": \"bocil@gmail.com\", \"password\": \"123\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/auth/login",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET VERIF USER",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\":\"basbas\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/auth/otp/a18287a6-ab51-490d-86ca-c199e04ac450/393684",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"auth",
+								"otp",
+								"a18287a6-ab51-490d-86ca-c199e04ac450",
+								"393684"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User REFRESH TOKEN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZGQ3MWM5LTZmYjEtNDdjZC1hZDI4LWJhM2Y1OTI0MTNiNiIsImVtYWlsIjoiYmFzcmlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkYXJnb24yaWQkdj0xOSRtPTY1NTM2LHQ9MyxwPTQkYnJXaTVLZzA0WHZEbjFIcys4SEt6USRoUzlLYVdrOC9VMDNHM1lSdThNTHFLQWpSc0oyQXRvOFlHeE91bjc5NENBIiwiZnVsbG5hbWUiOiJiYXNyaSIsInBob3RvIjpudWxsLCJ2ZXJpZiI6MSwib3RwIjoiOTAxMTY2IiwiY3JlYXRlZF9hdCI6bnVsbCwiaWF0IjoxNjc3NTUzNDgzLCJleHAiOjE2Nzc1NTcwODN9.UV6XcCyQh3bPitNHUzDKoiS8lDjFxy84SjCTBGO3O0g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Babi Guling\", \"ingredients\": \"babi crispy\", \"photo\": \"babi.jpg\", \"users_id\": 33, \"category_id\":1}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/auth/refresh",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "USER",
 			"item": [
 				{
@@ -27,12 +170,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"users"
 							]
@@ -46,6 +190,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZGQ3MWM5LTZmYjEtNDdjZC1hZDI4LWJhM2Y1OTI0MTNiNiIsImVtYWlsIjoiYmFzcmlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkYXJnb24yaWQkdj0xOSRtPTY1NTM2LHQ9MyxwPTQkYnJXaTVLZzA0WHZEbjFIcys4SEt6USRoUzlLYVdrOC9VMDNHM1lSdThNTHFLQWpSc0oyQXRvOFlHeE91bjc5NENBIiwiZnVsbG5hbWUiOiJiYXNyaSIsInBob3RvIjpudWxsLCJ2ZXJpZiI6MSwib3RwIjoiOTAxMTY2IiwiY3JlYXRlZF9hdCI6bnVsbCwiaWF0IjoxNjc3NTU0MzI2LCJleHAiOjE2Nzc1NTc5MjZ9.faH3VZ320P-MKUr4DhFNxpTOh3Eq6aAmw_fJEkZ-WnA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -58,15 +212,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/33",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/users/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"users",
-								"33"
+								"users"
 							]
 						}
 					},
@@ -90,12 +245,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/query?searchBy=name&search=a&sortBy=name&sort=DESC&offset&limit=100",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/users/query?searchBy=fullname&search=bas&sortBy=fullname&sort=DESC&offset&limit=100",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"users",
 								"query"
@@ -103,15 +259,15 @@
 							"query": [
 								{
 									"key": "searchBy",
-									"value": "name"
+									"value": "fullname"
 								},
 								{
 									"key": "search",
-									"value": "a"
+									"value": "bas"
 								},
 								{
 									"key": "sortBy",
-									"value": "name"
+									"value": "fullname"
 								},
 								{
 									"key": "sort",
@@ -131,44 +287,23 @@
 					"response": []
 				},
 				{
-					"name": "POST USER",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"name\": \"kutil\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "UPDATE USER",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZGQ3MWM5LTZmYjEtNDdjZC1hZDI4LWJhM2Y1OTI0MTNiNiIsImVtYWlsIjoiYmFzcmlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkYXJnb24yaWQkdj0xOSRtPTY1NTM2LHQ9MyxwPTQkYnJXaTVLZzA0WHZEbjFIcys4SEt6USRoUzlLYVdrOC9VMDNHM1lSdThNTHFLQWpSc0oyQXRvOFlHeE91bjc5NENBIiwiZnVsbG5hbWUiOiJiYXNyaSIsInBob3RvIjpudWxsLCJ2ZXJpZiI6MSwib3RwIjoiOTAxMTY2IiwiY3JlYXRlZF9hdCI6bnVsbCwiaWF0IjoxNjc3NTU0MzI2LCJleHAiOjE2Nzc1NTc5MjZ9.faH3VZ320P-MKUr4DhFNxpTOh3Eq6aAmw_fJEkZ-WnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"name\": \"otan\"}",
+							"raw": "{\"email\": \"bocil@gmail.com\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -176,15 +311,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/1",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/users/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"users",
-								"1"
+								"users"
 							]
 						}
 					},
@@ -193,11 +329,21 @@
 				{
 					"name": "SOFT DELETE USER",
 					"request": {
-						"method": "PUT",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZGQ3MWM5LTZmYjEtNDdjZC1hZDI4LWJhM2Y1OTI0MTNiNiIsImVtYWlsIjoiYmFzcmlAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkYXJnb24yaWQkdj0xOSRtPTY1NTM2LHQ9MyxwPTQkYnJXaTVLZzA0WHZEbjFIcys4SEt6USRoUzlLYVdrOC9VMDNHM1lSdThNTHFLQWpSc0oyQXRvOFlHeE91bjc5NENBIiwiZnVsbG5hbWUiOiJiYXNyaSIsInBob3RvIjpudWxsLCJ2ZXJpZiI6MSwib3RwIjoiOTAxMTY2IiwiY3JlYXRlZF9hdCI6bnVsbCwiaWF0IjoxNjc3NTU0MzI2LCJleHAiOjE2Nzc1NTc5MjZ9.faH3VZ320P-MKUr4DhFNxpTOh3Eq6aAmw_fJEkZ-WnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"deleted_at\": true}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -205,199 +351,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/users/33/delete",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/users/users",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"users",
-								"33",
-								"delete"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "CATEGORY",
-			"item": [
-				{
-					"name": "GET ALL CATEGORY",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/category",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"category"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET CATEGORY BY ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/category/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"category",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET CATEGORY BY QUERY",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"title\": \"minuman dingin\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/category/query?sortBy=title&sort=asc&offset&limit",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"category",
-								"query"
-							],
-							"query": [
-								{
-									"key": "sortBy",
-									"value": "title"
-								},
-								{
-									"key": "sort",
-									"value": "asc"
-								},
-								{
-									"key": "offset",
-									"value": null
-								},
-								{
-									"key": "limit",
-									"value": null
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "POST CATEGORY",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"title\": \"minuman dingin\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/category/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"category",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UPDATE CATEGORY",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"title\": \"main food\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/category/id/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"category",
-								"id",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SOFT DELETE CATEGORY",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"title\": \"main food\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/category/id/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"category",
-								"id",
-								"1"
+								"users"
 							]
 						}
 					},
@@ -414,12 +377,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/recipes",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"recipes"
 							]
@@ -445,15 +409,17 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/recipes/baso",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes/name/rice",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"recipes",
-								"baso"
+								"name",
+								"rice"
 							]
 						}
 					},
@@ -477,15 +443,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/recipes/id/1",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes/1",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"recipes",
-								"id",
 								"1"
 							]
 						}
@@ -510,14 +476,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/recipes?sort=desc&search=baso&sortBy=created_at&offset=&limit=",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes/query?sort=desc&search=rice&sortBy=created_at&offset=&limit=",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
-								"recipes"
+								"recipes",
+								"query"
 							],
 							"query": [
 								{
@@ -526,7 +494,7 @@
 								},
 								{
 									"key": "search",
-									"value": "baso"
+									"value": "rice"
 								},
 								{
 									"key": "sortBy",
@@ -546,13 +514,26 @@
 					"response": []
 				},
 				{
-					"name": "POST RECIPES",
+					"name": "GET RECIPES PAYLOAD ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImExODI4N2E2LWFiNTEtNDkwZC04NmNhLWMxOTllMDRhYzQ1MCIsImVtYWlsIjoiYmFzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJGFyZ29uMmlkJHY9MTkkbT02NTUzNix0PTMscD00JC9ORXVFRTNScUh6VGk1OExTSVdXRWckTHpIKzJoTVZCNGR6UzJ5THlTcFZjR0ljeXRhdnhqQ1Z3c05qYkRmM1FjVSIsImZ1bGxuYW1lIjoiYXJpIiwicGhvdG8iOm51bGwsInZlcmlmIjoxLCJvdHAiOiIzOTM2ODQiLCJjcmVhdGVkX2F0IjpudWxsLCJkZWxldGVkX2F0IjpudWxsLCJpYXQiOjE2Nzc1NTYwNDAsImV4cCI6MTY3NzU1OTY0MH0.1jwAZv3AiS661XHvYwsSuEmg_3IXe7zhYL4CvbH7XzI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"title\": \"Babi Guling\", \"ingredients\": \"babi crispy\", \"photo\": \"babi.jpg\", \"users_id\": 33, \"category_id\":1}",
+							"raw": "{\"title\" : \"baso aci\",\"ingredients\" : \"bakso, aci\",\"photo\" : \"3gp\",\"users_id\" : 31}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -560,15 +541,72 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/recipes/",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes/user-recipes/recipes",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"recipes",
-								""
+								"user-recipes",
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST RECIPES",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImExODI4N2E2LWFiNTEtNDkwZC04NmNhLWMxOTllMDRhYzQ1MCIsImVtYWlsIjoiYmFzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJGFyZ29uMmlkJHY9MTkkbT02NTUzNix0PTMscD00JC9ORXVFRTNScUh6VGk1OExTSVdXRWckTHpIKzJoTVZCNGR6UzJ5THlTcFZjR0ljeXRhdnhqQ1Z3c05qYkRmM1FjVSIsImZ1bGxuYW1lIjoiYXJpIiwicGhvdG8iOm51bGwsInZlcmlmIjoxLCJvdHAiOiIzOTM2ODQiLCJjcmVhdGVkX2F0IjpudWxsLCJkZWxldGVkX2F0IjpudWxsLCJpYXQiOjE2Nzc1NTU3MDUsImV4cCI6MTY3NzU1OTMwNX0.dDUUEjH5sdmnwl2Prvp3srqnX3XxklVJUvELcjj2HhE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "sambalado",
+									"type": "text"
+								},
+								{
+									"key": "ingredients",
+									"value": "ayu tingting",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/axaxax/Downloads/pot-mussels.jpg"
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"recipes"
 							]
 						}
 					},
@@ -577,11 +615,21 @@
 				{
 					"name": "UPDATE RECIPES",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcwZGQ3MWM5LTZmYjEtNDdjZC1hZDI4LWJhM2Y1OTI0MTNiNiIsImVtYWlsIjoiYm9jaWxAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkYXJnb24yaWQkdj0xOSRtPTY1NTM2LHQ9MyxwPTQkYnJXaTVLZzA0WHZEbjFIcys4SEt6USRoUzlLYVdrOC9VMDNHM1lSdThNTHFLQWpSc0oyQXRvOFlHeE91bjc5NENBIiwiZnVsbG5hbWUiOiJiYXNyaSIsInBob3RvIjoibnVsbCIsInZlcmlmIjoxLCJvdHAiOiI5MDExNjYiLCJjcmVhdGVkX2F0IjpudWxsLCJkZWxldGVkX2F0IjoiMjAyMy0wMi0yOFQwMzoyMjowOC41ODVaIiwiaWF0IjoxNjc3NTU2OTkwLCJleHAiOjE2Nzc1NjA1OTB9.gcI90DfS6QR_lSXDl37FQnnw-oibygCxdKKNyI9dsfs",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"ingredients\":\"gula dan susu\"}",
+							"raw": "{\"title\": \"sambal bakar\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -589,16 +637,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/recipes/id/18",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes/4",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"recipes",
-								"id",
-								"18"
+								"4"
 							]
 						}
 					},
@@ -607,7 +655,17 @@
 				{
 					"name": "SOFT DELETE RECIPES",
 					"request": {
-						"method": "PUT",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImExODI4N2E2LWFiNTEtNDkwZC04NmNhLWMxOTllMDRhYzQ1MCIsImVtYWlsIjoiYmFzQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJGFyZ29uMmlkJHY9MTkkbT02NTUzNix0PTMscD00JC9ORXVFRTNScUh6VGk1OExTSVdXRWckTHpIKzJoTVZCNGR6UzJ5THlTcFZjR0ljeXRhdnhqQ1Z3c05qYkRmM1FjVSIsImZ1bGxuYW1lIjoiYXJpIiwicGhvdG8iOm51bGwsInZlcmlmIjoxLCJvdHAiOiIzOTM2ODQiLCJjcmVhdGVkX2F0IjpudWxsLCJkZWxldGVkX2F0IjpudWxsLCJpYXQiOjE2Nzc1NTYwNDAsImV4cCI6MTY3NzU1OTY0MH0.1jwAZv3AiS661XHvYwsSuEmg_3IXe7zhYL4CvbH7XzI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -619,16 +677,212 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/recipes/id/19",
-							"protocol": "http",
+							"raw": "https://grumpy-onesies-cod.cyclic.app/recipes/4",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
 							],
-							"port": "3000",
 							"path": [
 								"recipes",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORY",
+			"item": [
+				{
+					"name": "GET ALL CATEGORY",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/category",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CATEGORY BY ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/category/2",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"category",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET CATEGORY BY QUERY",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"minuman dingin\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/category/query?search=main&searchBy=title&SortBy=title&sort=ASC&offset=0&limit=100",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"category",
+								"query"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "main"
+								},
+								{
+									"key": "searchBy",
+									"value": "title"
+								},
+								{
+									"key": "SortBy",
+									"value": "title"
+								},
+								{
+									"key": "sort",
+									"value": "ASC"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST CATEGORY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"dessert\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/category/",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE CATEGORY",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"category\": \"dessert\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/category/id/2",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"category",
 								"id",
-								"19"
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SOFT DELETE CATEGORY",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"deleted_at\":true}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://grumpy-onesies-cod.cyclic.app/category/1",
+							"protocol": "https",
+							"host": [
+								"grumpy-onesies-cod",
+								"cyclic",
+								"app"
+							],
+							"path": [
+								"category",
+								"1"
 							]
 						}
 					},
