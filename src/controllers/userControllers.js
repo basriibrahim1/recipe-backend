@@ -1,4 +1,7 @@
 const { selectUser, updateUser, checkUserById, userQuery, deleteUser } = require("../models/userModels");
+const redis = require("redis");
+const client = redis.createClient();
+
 
 const userController = {
     getUser: async (req, res) => {
@@ -16,8 +19,29 @@ const userController = {
         }
     },
 
-    getUserById: async (req, res) => {
+    getUserById: async(req,res) => {
+        let id = req.params.id;
+
+        try {
+            let result = await checkUserById(id);
+
+            const key = req.originalUrl;
+            client.setex(key, 20, JSON.stringify(result.rows));
+
+            res.status(200).json({
+                message: "getUser success",
+                data: result.rows,
+            });
+        } catch (error) {
+            res.status(404).json({
+                message: "data not found",
+            });
+        }
+    },
+
+    getUserByPayloadId: async (req, res) => {
         let id = req.payload.id;
+      
 
         try {         
             let result = await checkUserById(id);

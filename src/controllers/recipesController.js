@@ -1,12 +1,10 @@
-const  {findFoodRecipesById}  = require("../middleware/verifyUser");
-const { selectInsertRecipes, selectRecipesQuery, selectRecipesName, selectRecipesId, selectUpdateRecipes, selectDeleteRecipes, selectAllRecipes , selectRecipesPayloadId} = require("../models/recipesModels");
+const { findFoodRecipesById } = require("../middleware/verifyUser");
+const { selectInsertRecipes, selectRecipesQuery, selectRecipesName, selectRecipesId, selectUpdateRecipes, selectDeleteRecipes, selectAllRecipes, selectRecipesPayloadId } = require("../models/recipesModels");
 const cloudinary = require("../config/cloudinaryConfig");
 
 const recipeController = {
     inputRecipes: async (req, res) => {
-
-
-        // jika ingin menggunakan batch pada cloudinary
+    // jika ingin menggunakan batch pada cloudinary
 
         // let images = req.files;
         // let urls = [];
@@ -18,31 +16,24 @@ const recipeController = {
         //     urls.push(result.secure_url);
         // })
         // );
-        const imageUrl = await cloudinary.uploader.upload(req.file.path, {folders:"food"});
+        const imageUrl = await cloudinary.uploader.upload(req.file.path, { folders: "food" });
 
-        if(!imageUrl){
+        if (!imageUrl) {
             res.status(401).json({
                 message: "Failed to input data, please try again later",
             });
         }
 
-
-        
         let data = {};
         data.title = req.body.title;
         data.ingredients = req.body.ingredients;
         data.photo = imageUrl.secure_url;
         data.users_id = req.payload.id;
         data.category_id = parseInt(req.body.category_id);
-       
 
         console.log(data);
 
-
-        
-        
-        try { 
-
+        try {
             await selectInsertRecipes(data);
 
             res.status(200).json({
@@ -56,7 +47,7 @@ const recipeController = {
         }
     },
 
-    getRecipesData: async (req, res,) => {
+    getRecipesData: async (req, res) => {
         try {
             let result = await selectAllRecipes();
             res.status(200).json({
@@ -114,7 +105,6 @@ const recipeController = {
         }
     },
 
-
     showRecipesById: async (req, res) => {
         const id = req.params.id;
 
@@ -122,7 +112,7 @@ const recipeController = {
             let result = await selectRecipesId(id);
             res.status(200).json({
                 message: `Recipe with id ${id}`,
-                data: result.rows
+                data: result.rows,
             });
         } catch (error) {
             res.status(500).json({
@@ -132,16 +122,15 @@ const recipeController = {
         }
     },
 
-    showRecipesByPayloadId: async (req, res,) => {
+    showRecipesByPayloadId: async (req, res) => {
         let id = req.payload.id;
 
         try {
             const result = await selectRecipesPayloadId(id);
 
-
             res.status(200).json({
                 message: "Result :",
-                data: result.rows
+                data: result.rows,
             });
         } catch (error) {
             res.status(500).json({
@@ -154,32 +143,37 @@ const recipeController = {
     showRecipesUpdated: async (req, res) => {
         let id = req.params.id;
         let users_id = req.payload.id;
-      
+        const imageUrl = await cloudinary.uploader.upload(req.file.path, { folders: "food" });
+
+        if (!imageUrl) {
+            res.status(401).json({
+                message: "Failed to input data, please try again later",
+            });
+        }
+
         try {
             let selectDataById = await findFoodRecipesById(id);
             let currentRecipe = selectDataById.rows[0];
-      
+
             let data = {
                 title: req.body.title || currentRecipe.title,
                 ingredients: req.body.ingredients || currentRecipe.ingredients,
                 category_id: req.body.category_id || currentRecipe.category_id,
-                photo: req.body.photo || currentRecipe.photo,
-                users_id: currentRecipe.users_id
+                photo: imageUrl.secure_url,
+                users_id: currentRecipe.users_id,
             };
-          
-            if(data.users_id !== users_id){
+
+            if (data.users_id !== users_id) {
                 res.status(403).json({
-                    message: "Access Denied"
+                    message: "Access Denied",
                 });
             } else {
                 await selectUpdateRecipes(data, id);
-
 
                 res.status(200).json({
                     message: "Data has been updated",
                 });
             }
-          
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error",
@@ -193,14 +187,11 @@ const recipeController = {
         let users_id = req.payload.id;
 
         try {
-
             let selectDataById = await findFoodRecipesById(id);
 
-
-
-            if(selectDataById.rows[0].users_id !== users_id){
+            if (selectDataById.rows[0].users_id !== users_id) {
                 res.status(403).json({
-                    message: "Access Denied"
+                    message: "Access Denied",
                 });
             } else {
                 await selectDeleteRecipes(id, users_id);
