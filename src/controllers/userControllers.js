@@ -1,6 +1,4 @@
 const { selectUser, updateUser, checkUserById, userQuery, deleteUser } = require("../models/userModels");
-const redis = require("redis");
-const client = redis.createClient();
 
 
 const userController = {
@@ -24,9 +22,6 @@ const userController = {
 
         try {
             let result = await checkUserById(id);
-
-            const key = req.originalUrl;
-            client.setex(key, 20, JSON.stringify(result.rows));
 
             res.status(200).json({
                 message: "getUser success",

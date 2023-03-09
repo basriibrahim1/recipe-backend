@@ -11,7 +11,7 @@ const selectInsertRecipes = (data) => {
 
 const selectAllRecipes = () => {
     return pool.query(`
-        SELECT recipes.id, users.fullname as creator, recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category
+        SELECT recipes.id, recipes.photo, users.fullname as creator, recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category
         FROM recipes
         JOIN category ON recipes.category_id = category.id
         JOIN users ON recipes.users_id = users.id
