@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(xss());
+// app.use(xss());
 
 
 const corsOptions = {
