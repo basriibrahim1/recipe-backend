@@ -45,7 +45,7 @@ const selectRecipesName = (title) => {
 
 const selectRecipesId = (id) => {
     return pool.query(`
-        SELECT recipes.id AS id, users_id AS users_id, users.fullname AS creator, recipes.title, recipes.ingredients, recipes.photo, category.name AS category_title, category.id AS category_id
+        SELECT recipes.id AS id, users_id, users.fullname AS creator, recipes.title, recipes.ingredients, recipes.photo, category.name AS category_title, category.id AS category_id
       FROM recipes 
       INNER JOIN category ON recipes.category_id = category.id 
       INNER JOIN users ON recipes.users_id = users.id
@@ -56,7 +56,7 @@ const selectRecipesId = (id) => {
 
 const selectRecipesPayloadId = (id) => {
     return pool.query(`
-    SELECT users_id AS Users, recipes.title, recipes.ingredients, recipes.photo, category.name AS category_title, category.id AS category_id
+    SELECT recipes.id, users_id AS Users, recipes.title, recipes.ingredients, recipes.photo, category.name AS category_title, category.id AS category_id
       FROM recipes 
       INNER JOIN category ON recipes.category_id = category.id 
       INNER JOIN users ON recipes.users_id = users.id
@@ -70,12 +70,8 @@ const selectUpdateRecipes = (data, id) => {
 
     return new Promise((resolve, reject) => {
         pool.query(
-            `UPDATE recipes SET 
-            title = '${title}',
-            ingredients = '${ingredients}',
-            category_id = ${category_id}, 
-            photo = '${photo}'
-            WHERE id = ${id} AND users_id = '${users_id}' AND deleted_at IS NULL RETURNING *`,
+            `UPDATE recipes SET title='${title}', ingredients='${ingredients}', category_id=${category_id}, photo='${photo}', users_id = '${users_id}'
+            WHERE id = ${id} AND deleted_at IS NULL`,
             (error, result) => {
                 if (error) {
                     reject(error.message);

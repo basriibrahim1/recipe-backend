@@ -16,6 +16,13 @@ const recipeController = {
         //     urls.push(result.secure_url);
         // })
         // );
+
+        if(!req.isFileValid){
+            return res.status(400).json({
+                message: 'Only .jpeg or .png files are accepted'
+            })
+        }
+
         const imageUrl = await cloudinary.uploader.upload(req.file.path, { folders: "food" });
 
         if (!imageUrl) {
@@ -24,14 +31,15 @@ const recipeController = {
             });
         }
 
-        let data = {};
-        data.title = req.body.title;
-        data.ingredients = req.body.ingredients;
-        data.photo = imageUrl.secure_url;
-        data.users_id = req.payload.id;
-        data.category_id = parseInt(req.body.category_id);
+        let data = {
+        title : req.body.title,
+        ingredients : req.body.ingredients,
+        photo : imageUrl.secure_url,
+        users_id : req.payload.id,
+        category_id : parseInt(req.body.category_id)};
 
-        console.log(data);
+
+        console.log(data.photo)
 
         try {
             await selectInsertRecipes(data);
@@ -40,7 +48,7 @@ const recipeController = {
                 message: "data recipes has been inputed",
             });
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
             res.status(401).json({
                 message: "data recipes not input",
             });
@@ -141,29 +149,47 @@ const recipeController = {
     },
 
     showRecipesUpdated: async (req, res) => {
-        let id = req.params.id;
-        let users_id = req.payload.id;
-        const imageUrl = await cloudinary.uploader.upload(req.file.path, { folders: "food" });
-
-        if (!imageUrl) {
-            res.status(401).json({
-                message: "Failed to input data, please try again later",
-            });
-        }
-
         try {
+
+            let id = req.params.id;
+
+            if(!req.isFileValid){
+                return res.status(400).json({
+                    message: 'Only .jpeg or .png files are accepted'
+                })
+            }
+
             let selectDataById = await findFoodRecipesById(id);
             let currentRecipe = selectDataById.rows[0];
 
+            if (!req.file || !req.file.path) {
+                res.status(400).json({
+                    message: "Missing file or file path",
+                });
+            } 
+                
+            
+            let imageUrl = await cloudinary.uploader.upload(req.file.path, {
+                    folders: "food",
+                });
+                
+
+            if (!imageUrl) {
+                    res.status(401).json({
+                        message: "Failed to input data, please try again later",
+                    });
+            }       
+            
             let data = {
                 title: req.body.title || currentRecipe.title,
                 ingredients: req.body.ingredients || currentRecipe.ingredients,
                 category_id: req.body.category_id || currentRecipe.category_id,
-                photo: imageUrl.secure_url,
-                users_id: currentRecipe.users_id,
+                photo: imageUrl.secure_url || currentRecipe.photo,
+                users_id: req.payload.id || currentRecipe.users_id
             };
+    
 
-            if (data.users_id !== users_id) {
+            if (data.users_id != currentRecipe.users_id || req.payload.id != currentRecipe.users_id) {
                 res.status(403).json({
                     message: "Access Denied",
                 });
@@ -177,7 +203,7 @@ const recipeController = {
         } catch (error) {
             res.status(500).json({
                 message: "Internal server error",
-                error: error.msg,
+                error: error.message,
             });
         }
     },

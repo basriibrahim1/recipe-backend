@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { inputRecipes, listRecipesQuery, showRecipesUpdated, showRecipesByName, showRecipesById, softDeleteRecipe, getRecipesData, showRecipesByPayloadId} = require("../controllers/recipesController");
-// const protect = require("../middleware/ProtectAuth");
-const upload = require("../middleware/photo");
 const protect = require("../middleware/ProtectAuth");
+const upload = require("../middleware/photo");
 
 
 // insert ke database
@@ -18,7 +17,6 @@ router.get("/", getRecipesData);
 // get dengan nama
 router.get("/name/:title", showRecipesByName);
 
-
 // get by id
 router.get("/:id", showRecipesById);
 
@@ -26,7 +24,7 @@ router.get("/:id", showRecipesById);
 router.get("/user-recipes/recipes", protect, showRecipesByPayloadId);
 
 // ganti khusus user
-router.put("/:id", protect, showRecipesUpdated);
+router.put("/:id", protect, upload.single("photo"), showRecipesUpdated);
 
 // delete khusus user
 router.delete("/:id", protect, softDeleteRecipe);
