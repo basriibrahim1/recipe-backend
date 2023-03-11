@@ -17,11 +17,11 @@ const recipeController = {
         // })
         // );
 
-        if(!req.isFileValid){
-            return res.status(400).json({
-                message: 'Only .jpeg or .png files are accepted'
-            })
-        }
+        // if(!req.isFileValid){
+        //     return res.status(400).json({
+        //         message: 'Only .jpeg or .png files are accepted'
+        //     })
+        // }
 
         const imageUrl = await cloudinary.uploader.upload(req.file.path, { folders: "food" });
 
