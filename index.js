@@ -14,7 +14,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(xss());
-app.use(cors());
+
+
+const corsOptions = {
+    origin: "*",
+    credentials: true,
+    optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 
