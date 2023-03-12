@@ -152,11 +152,11 @@ const recipeController = {
     try {
       let id = req.params.id;
 
-      // if(!req.isFileValid){
-      //     return res.status(400).json({
-      //         message: 'Only .jpeg or .png files are accepted'
-      //     })
-      // }
+      if (!req.isFileValid) {
+        return res.status(400).json({
+          message: "Only .jpeg or .png files are accepted",
+        });
+      }
 
       let selectDataById = await findFoodRecipesById(id);
       let currentRecipe = selectDataById.rows[0];
@@ -167,34 +167,56 @@ const recipeController = {
       //     });
       // }
 
-      let imageUrl = await cloudinary.uploader.upload(req.file.path, {
-        folders: "food",
-      });
-
-      if (!imageUrl) {
-        res.status(401).json({
-          message: "Failed to input data, please try again later",
+      if (req.file) {
+        let imageUrl = await cloudinary.uploader.upload(req.file.path, {
+          folders: "food",
         });
-      }
 
-      let data = {
-        title: req.body.title || currentRecipe.title,
-        ingredients: req.body.ingredients || currentRecipe.ingredients,
-        category_id: req.body.category_id || currentRecipe.category_id,
-        photo: imageUrl.secure_url || currentRecipe.photo,
-        users_id: req.payload.id || currentRecipe.users_id,
-      };
+        if (!imageUrl) {
+          res.status(401).json({
+            message: "Failed to input data, please try again later",
+          });
+        }
 
-      if (data.users_id != currentRecipe.users_id || req.payload.id != currentRecipe.users_id) {
-        res.status(403).json({
-          message: "Access Denied",
-        });
+        let data = {
+          title: req.body.title || currentRecipe.title,
+          ingredients: req.body.ingredients || currentRecipe.ingredients,
+          category_id: req.body.category_id || currentRecipe.category_id,
+          photo: imageUrl.secure_url || currentRecipe.photo,
+          users_id: req.payload.id || currentRecipe.users_id,
+        };
+
+        if (data.users_id != currentRecipe.users_id || req.payload.id != currentRecipe.users_id) {
+          res.status(403).json({
+            message: "Access Denied",
+          });
+        } else {
+          await selectUpdateRecipes(data, id);
+
+          res.status(200).json({
+            message: "Data has been updated",
+          });
+        }
       } else {
-        await selectUpdateRecipes(data, id);
+        let data = {
+          title: req.body.title || currentRecipe.title,
+          ingredients: req.body.ingredients || currentRecipe.ingredients,
+          category_id: req.body.category_id || currentRecipe.category_id,
+          photo: currentRecipe.photo,
+          users_id: req.payload.id || currentRecipe.users_id,
+        };
 
-        res.status(200).json({
-          message: "Data has been updated",
-        });
+        if (data.users_id != currentRecipe.users_id || req.payload.id != currentRecipe.users_id) {
+          res.status(403).json({
+            message: "Access Denied",
+          });
+        } else {
+          await selectUpdateRecipes(data, id);
+
+          res.status(200).json({
+            message: "Data has been updated",
+          });
+        }
       }
     } catch (error) {
       res.status(500).json({
