@@ -1,4 +1,4 @@
-@url = http://localhost:3000
+@url = http://localhost:5000
 
 ###
 GET {{url}}/users
@@ -70,14 +70,16 @@ POST {{url}}/auth/login
 Content-Type: application/json
 
 {
-    "email": "ohmygod@gmail.com",
+    "email": "bocil@gmail.com",
     "password": "123"
 }
 
 
 ###
 
+Content-Type: mu
 
+###
 GET {{url}}/recipes
 
 
