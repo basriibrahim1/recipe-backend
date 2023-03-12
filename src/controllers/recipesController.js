@@ -152,8 +152,20 @@ const recipeController = {
     try {
       let id = req.params.id;
 
+      // if(!req.isFileValid){
+      //     return res.status(400).json({
+      //         message: 'Only .jpeg or .png files are accepted'
+      //     })
+      // }
+
       let selectDataById = await findFoodRecipesById(id);
       let currentRecipe = selectDataById.rows[0];
+
+      // if (!req.file || !req.file.path) {
+      //     res.status(400).json({
+      //         message: "Missing file or file path",
+      //     });
+      // }
 
       let imageUrl = await cloudinary.uploader.upload(req.file.path, {
         folders: "food",
