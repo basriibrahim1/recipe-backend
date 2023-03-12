@@ -26,7 +26,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   limits: { fileSize: 10 * Math.pow(1024, 4) },
-  fileFilter: fileFilter,
+  //   fileFilter: fileFilter,
 });
 
 // jika ingin menggunakan batch pada multer

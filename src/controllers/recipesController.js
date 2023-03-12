@@ -152,11 +152,11 @@ const recipeController = {
     try {
       let id = req.params.id;
 
-      if (!req.isFileValid) {
-        return res.status(400).json({
-          message: "Only .jpeg or .png files are accepted",
-        });
-      }
+      //   if (!req.isFileValid) {
+      //     return res.status(400).json({
+      //       message: "Only .jpeg or .png files are accepted",
+      //     });
+      //   }
 
       let selectDataById = await findFoodRecipesById(id);
       let currentRecipe = selectDataById.rows[0];
