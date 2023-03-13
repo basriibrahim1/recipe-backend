@@ -167,7 +167,7 @@ const recipeController = {
       //     });
       // }
 
-      if (req.file) {
+      if (req.file || req.file.path) {
         let imageUrl = await cloudinary.uploader.upload(req.file.path, {
           folders: "food",
         });
