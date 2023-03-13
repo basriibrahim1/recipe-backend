@@ -167,56 +167,34 @@ const recipeController = {
       //     });
       // }
 
-      if (req.file || req.file.path) {
-        let imageUrl = await cloudinary.uploader.upload(req.file.path, {
-          folders: "food",
+      let imageUrl = await cloudinary.uploader.upload(req.file.path, {
+        folders: "food",
+      });
+
+      if (!imageUrl) {
+        res.status(401).json({
+          message: "Failed to input data, please try again later",
         });
+      }
 
-        if (!imageUrl) {
-          res.status(401).json({
-            message: "Failed to input data, please try again later",
-          });
-        }
+      let data = {
+        title: req.body.title || currentRecipe.title,
+        ingredients: req.body.ingredients || currentRecipe.ingredients,
+        category_id: req.body.category_id || currentRecipe.category_id,
+        photo: imageUrl.secure_url || currentRecipe.photo,
+        users_id: req.payload.id || currentRecipe.users_id,
+      };
 
-        let data = {
-          title: req.body.title || currentRecipe.title,
-          ingredients: req.body.ingredients || currentRecipe.ingredients,
-          category_id: req.body.category_id || currentRecipe.category_id,
-          photo: imageUrl.secure_url || currentRecipe.photo,
-          users_id: req.payload.id || currentRecipe.users_id,
-        };
-
-        if (data.users_id != currentRecipe.users_id || req.payload.id != currentRecipe.users_id) {
-          res.status(403).json({
-            message: "Access Denied",
-          });
-        } else {
-          await selectUpdateRecipes(data, id);
-
-          res.status(200).json({
-            message: "Data has been updated",
-          });
-        }
+      if (data.users_id != currentRecipe.users_id || req.payload.id != currentRecipe.users_id) {
+        res.status(403).json({
+          message: "Access Denied",
+        });
       } else {
-        let data = {
-          title: req.body.title || currentRecipe.title,
-          ingredients: req.body.ingredients || currentRecipe.ingredients,
-          category_id: req.body.category_id || currentRecipe.category_id,
-          photo: currentRecipe.photo,
-          users_id: req.payload.id || currentRecipe.users_id,
-        };
+        await selectUpdateRecipes(data, id);
 
-        if (data.users_id != currentRecipe.users_id || req.payload.id != currentRecipe.users_id) {
-          res.status(403).json({
-            message: "Access Denied",
-          });
-        } else {
-          await selectUpdateRecipes(data, id);
-
-          res.status(200).json({
-            message: "Data has been updated",
-          });
-        }
+        res.status(200).json({
+          message: "Data has been updated",
+        });
       }
     } catch (error) {
       res.status(500).json({
