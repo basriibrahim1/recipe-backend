@@ -9,13 +9,13 @@ const upload = require("../middleware/photo");
 router.post("/", protect, upload.single("photo"), inputRecipes);
 
 // get dengan query
-router.get("/query", listRecipesQuery);
+router.get("/name/:title", showRecipesByName);
 
+router.get("/query", listRecipesQuery);
 // get semua data
 router.get("/", getRecipesData);
 
 // get dengan nama
-router.get("/name/:title", showRecipesByName);
 
 // get by id
 router.get("/:id", showRecipesById);

@@ -20,21 +20,20 @@ const selectAllRecipes = () => {
 };
 
 const selectRecipesQuery = (data) => {
-    let { sort, search, searchBy, sortBy, offset, limit } = data;
+    let { sort, search, searchBy, sortBy} = data;
     return pool.query(
-        `SELECT recipes.title, recipes.ingredients, recipes.photo, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category
-        FROM recipes 
+        `SELECT recipes.title, recipes.ingredients, recipes.photo, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category FROM recipes 
         INNER JOIN category ON recipes.category_id = category.id 
         WHERE recipes.deleted_at IS NULL AND recipes.${searchBy} ILIKE '%${search}%' 
         ORDER BY recipes.${sortBy} ${sort} 
-        OFFSET ${offset} 
-        LIMIT ${limit}; `
+        OFFSET 0 
+        LIMIT 100; `
     );
 };
 
 const selectRecipesName = (title) => {
     return pool.query(`
-    SELECT recipes.title, users.fullname AS creator, recipes.ingredients AS ingredients, category.name AS category 
+    SELECT recipes.title, users.fullname AS creator, recipes.photo, recipes.ingredients AS ingredients, category.name AS category 
     FROM recipes 
     JOIN category ON recipes.category_id = category.id 
     JOIN users ON recipes.users_id = users.id 
