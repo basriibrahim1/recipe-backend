@@ -73,12 +73,12 @@ const recipeController = {
   listRecipesQuery: async (req, res) => {
     let { sort, search, searchBy, sortBy, offset, limit } = req.query;
     let data = {
-      sort: sort || "ASC",
+      sort: sort || "DESC",
       search: search || "",
-      searchBy: searchBy || "title",
-      sortBy: sortBy || "created_at",
+      searchBy: searchBy || "",
+      sortBy: sortBy || "title",
       offset: offset || 0,
-      limit: limit || 3,
+      limit: limit || 100,
     };
 
     try {
