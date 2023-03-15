@@ -71,7 +71,7 @@ const recipeController = {
   },
 
   listRecipesQuery: async (req, res) => {
-    let { sort, search, searchBy, sortBy, offset, limit } = req.query;
+    let { sort, search, searchBy, sortBy} = req.query;
     let data = {
       sort: sort || "ASC",
       search: search || "sambal",
