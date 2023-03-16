@@ -11,7 +11,7 @@ router.post("/", protect, upload.single("photo"), inputRecipes);
 // get dengan query
 router.get("/name/:title", showRecipesByName);
 
-router.get("/query", listRecipesQuery);
+router.get("/", listRecipesQuery);
 // get semua data
 router.get("/", getRecipesData);
 
