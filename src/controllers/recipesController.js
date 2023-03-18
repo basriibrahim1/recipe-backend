@@ -60,7 +60,7 @@ const recipeController = {
       const limit = parseInt(req.query.limit) || 3
       const page = parseInt(req.query.page) || 1
       const offset = (page - 1) * limit
-      const sort = req.query.sort || ASC
+      let sort = req.query.sort || 'ASC'
 
       let result = await selectAllRecipes(limit, offset, sort);
       res.status(200).json({

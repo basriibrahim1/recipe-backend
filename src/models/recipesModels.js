@@ -9,7 +9,7 @@ const selectInsertRecipes = (data) => {
      VALUES ('${title}','${ingredients}', '${photo}', '${users_id}',  ${category_id}, '${Newtime}');`);
 };
 
-const selectAllRecipes = (limit, offset, sort) => {
+const selectAllRecipes = (limit, offset, sort = 'asc') => {
     return pool.query(`
         SELECT recipes.id, recipes.photo, users.fullname as creator, recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category
         FROM recipes
