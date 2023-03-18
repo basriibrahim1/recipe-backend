@@ -57,10 +57,16 @@ const recipeController = {
 
   getRecipesData: async (req, res) => {
     try {
-      let result = await selectAllRecipes();
+      const limit = parseInt(req.query.limit) || 3
+      const page = parseInt(req.query.page) || 1
+      const offset = (page - 1) * limit
+      const sort = req.query.sort || ASC
+
+      let result = await selectAllRecipes(limit, offset, sort);
       res.status(200).json({
         message: "List for recipes",
         data: result.rows,
+        page: page
       });
     } catch (error) {
       res.status(500).json({
@@ -77,7 +83,8 @@ const recipeController = {
       search: search || "sambal",
       searchBy: searchBy || "title",
       sortBy: sortBy || "created_at",
-      limit: limit || 100
+      offset: offset || 0,
+      limit: limit || 4
     };
 
     try {
