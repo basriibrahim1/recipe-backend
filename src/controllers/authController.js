@@ -19,7 +19,7 @@ const authController = {
 
         let {rows:[users]} = await findUser(req.body.email);
 
-        if(users.email === req.body.email){
+        if(users){
             return res.status(400).json({
                 message: "Email has been used, please register with another email"
             });
