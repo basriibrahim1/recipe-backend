@@ -58,11 +58,10 @@ const recipeController = {
   getRecipesData: async (req, res) => {
     try {
       const page = parseInt(req.query.page) || 1
-      const offset = (page - 1) * limit
       let sort = req.query.sort || 'ASC'
       let search = req.query.search || ''
 
-      let result = await selectAllRecipes(offset, sort, search);
+      let result = await selectAllRecipes(sort, search);
       res.status(200).json({
         message: "List for recipes",
         data: result.rows,
