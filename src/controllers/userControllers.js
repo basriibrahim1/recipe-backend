@@ -1,4 +1,6 @@
 const { selectUser, updateUser, checkUserById, userQuery, deleteUser, checkUserByName } = require("../models/userModels");
+const cloudinary = require("../config/cloudinaryConfig");
+
 
 const userController = {
   getUser: async (req, res) => {
@@ -78,6 +80,15 @@ const userController = {
   updateDataUser: async (req, res) => {
     let id = req.payload.id;
 
+
+    const imageUrl = await cloudinary.uploader.upload(req.file.path, { folders: "user" });
+
+    if (!imageUrl) {
+      res.status(401).json({
+        message: "Failed to input data, please try again later",
+      });
+    }
+
     try {
       let checking = await checkUserById(id);
       let current = checking.rows[0];
@@ -86,7 +97,7 @@ const userController = {
       data.email = req.body.email || current.email;
       data.password = req.body.password || current.password;
       data.fullname = req.body.fullname || current.fullname;
-      data.photo = req.body.photo || current.photo;
+      data.photo = imageUrl.secure_url || current.photo;
 
       if (checking.rows[0].id !== id) {
         res.status(404).json({

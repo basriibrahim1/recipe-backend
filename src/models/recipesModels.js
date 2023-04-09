@@ -5,11 +5,11 @@ const selectInsertRecipes = (data) => {
 
     let Newtime = new Date().toISOString();
 
-    return pool.query(`INSERT INTO recipes(title, ingredients, photo, users_id, category_id, created_at ) 
+    return pool.query(`INSERT INTO recipes(title, ingredients, photo, users_id, category_id, created_at) 
      VALUES ('${title}','${ingredients}', '${photo}', '${users_id}',  ${category_id}, '${Newtime}');`);
 };
 
-const selectAllRecipes = (limit, offset, sort, search) => {
+const selectAllRecipes = (offset, sort, search) => {
     return pool.query(`
         SELECT recipes.id, recipes.photo, users.fullname as creator, recipes.title, recipes.ingredients, TO_CHAR(recipes.created_at, 'DD-MM-YYYY HH24:MI:SS') AS posttime, category.name AS category
         FROM recipes
@@ -17,7 +17,6 @@ const selectAllRecipes = (limit, offset, sort, search) => {
         JOIN users ON recipes.users_id = users.id
         WHERE recipes.deleted_at IS NULL AND recipes.title ILIKE '%${search}%' 
         ORDER BY recipes.title ${sort}
-        LIMIT ${limit}
         OFFSET ${offset}
     `);
 };
