@@ -1,5 +1,5 @@
-# rest-api-with-postgresql
-this project was made by EXPRESS.JS  And POSTGRESQL.
+# recipe-backend
+backend for recipe
 
 
 ##
