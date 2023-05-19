@@ -42,7 +42,7 @@ CREATE TABLE users (
 /* untuk table */
 
 
-UPDATE food_recipes SET deleted_at = NULL WHERE id = 19;
+UPDATE users SET deleted_at = NULL;
 
 SELECT * FROM food_recipes;
 

@@ -33,7 +33,6 @@ const authController = {
             fullname: req.body.fullname,
             password: await argon2.hash(req.body.password),
             otp,
-            // roles: 'customer'
         };
 
         let register = await createUser(data);
