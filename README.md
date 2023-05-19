@@ -79,9 +79,9 @@ Start the server
 ```
 
 # Api documentation
-users
-recipes
-category
+- users
+- recipes
+- category
 
 ---
 ### Register users
